@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% load static %}
+    <div class="wallpaper">
+    <img src="{% static 'wallpaper.jpg' %}" class='background' height="560px" alt="wallpaper">
+        <div class="form">
+            <h1>Sign Up</h1>
+            <p>Sign up to discover and read your favorite books</p>
+        
+        <form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" id="registerbtn">SignUp</button>
+        </form>
+        <form action="{% url 'login' %}">
+            <button type="submit" id="cancel">Cancel</button>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<style>
+    .body {
+        margin: 0;
+    }
+
+    .wallpaper{
+        margin: 0;
+    }
+
+    .background{
+        margin: 0;
+        width: 100%;
+        background-image: linear-gradient(to bottom right, rgb(87, 87, 87), rgba(122, 122, 119, 0.116));
+        position: relative;
+    }
+
+    h1 {
+        text-align: center;
+        font-family: Georgia,  serif;
+        font-size: 20px;
+    }
+
+    p {
+        text-align: center;
+        font-family: Georgia,  serif;
+        font-size: 15px;
+        font-weight: normal;
+        color: grey;
+    }
+
+    .wallpaper .form {
+        position: absolute;
+        background-color: #F7F7F7;
+        width: 400px;
+        height: 450px;
+        opacity: 0.9;
+        border-radius: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    label {
+        display: none;
+    }
+
+    input[type=password], input[type=text], input[type=email] {
+        width: 80%;
+        padding: 10px 15px;
+        margin: 5px 20px;
+        display: inline-block;
+        border: 1px solid grey;
+        border-radius: 20px;
+        background-color:#F7F7F7 ;
+    }
+
+    label {
+        font-family: Georgia, serif;
+        font-family: 17px;
+        font-weight: normal;
+        padding: 10px 20px;
+        margin-top: 50px  ;
+    }
+
+    button { 
+        width: 90%;
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 12px 15px;
+        margin: 5px 20px;
+        margin-top: 10px;
+        text-align: center;    
+        cursor: pointer;    
+    }
+
+    #registerbtn {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    #registerbtn :hover {
+        background-color: #03794e
+    }
+
+
+    #cancel {
+        background-color: #F7F7F7;
+        color: black;
+    }
+
+    #cancel:hover { 
+        background-color: lightgrey;
+    }
+

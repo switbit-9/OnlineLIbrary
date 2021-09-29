@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>HomePage</title>
+
+<div class='HomePage'>
+    <nav class="header">
+        
+        <i class="fas fa-book-reader" id="logo" style="font-size: 30px;
+        color: #4CAF50;"></i>
+
+        <form action="{% url 'search' %}" class="search" style="max-width: 600px;" method="GET">
+            {% csrf_token %}
+            <input class="input-field" type="text" placeholder="What are you looking for ? " name="q" >
+            <i id="search" class="fas fa-search" style="font-size: 20px; float: right;"></i>
+        </form>
+
+        <div class='header-right'>
+          <a href="{% url 'home'%}" class="home">Home</a>
+          <a href="{% url 'authors' %}">Authors</a>
+          <a href="about" class="about us">About</a>
+          <a href="{% url 'profile'%}" class="profile" style="font-weight: bolder;">
+            {{ username }}
+          </a>
+          
+          
+        </div>
+    </nav>
+</head>
+
+<style>
+body {
+    margin: 0;
+}
+    .header {
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%; 
+    overflow: hidden;
+    border: 0.5px solid rgba(230, 230, 230, 0.39);
+    box-shadow: 5px 5px rgba(230, 230, 230, 0.39);
+    }
+
+    .header a {
+        display: inline-block;
+        color: rgb(8, 8, 8);
+        text-align: center;
+        padding: 8px 16px;
+        font-size: 17px;
+        text-decoration: none; 
+        margin: 10px;
+        
+    }
+
+    .header a:hover {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .header a:active {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .header-right{
+        float: right;
+    }
+
+    #logo {
+    float: left;
+    padding: 10px;
+    position: absolute;
+    padding-left: 20px;
+    }
+
+
+    
+        .search {
+        box-sizing: border-box;
+        display: inline-block;
+        position: inherit;
+        border-radius: 20px;
+        background-color: #f0eeee;
+        width: 600px;
+        height: 40px;  
+        margin-left: 200px;
+        margin-top: 5px;
+        }
+
+      
+        .search input[type=text] {
+            width: 85%;
+            font-size: 17px;
+            border: none;
+            background-color:transparent;
+            margin: 10px 20px;
+            font-family: sans-serif;
+        }
+
+        #search {
+            min-width: 20px;
+            padding: 10px;
+            position: absolute;
+            float: right;
+        }
+
+</style>
+<body>
+    
+
+    <div class='mainmenu'>
+        <div class="sub-menu">
+            <a href="{% url 'profile' %}" class="activity"> 
+                <i class="fas fa-user-alt"></i> 
+                My Profile
+           </a>
+      
+            <a href="{% url 'saved'%}" class="saved"> 
+                <i class="fas fa-book-open" ></i>
+                Favorites
+            </a>
+           
+            <a href="{% url 'calendar' %}" class="calendar">
+                <i class="fas fa-calendar-alt"></i>
+                Calendar
+            </a>
+    
+            <a href="{% url 'settings' %}" class="settings">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+
+            <a href="{% url 'logout' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        
+        </div>
+    
+    </div>
+
+<style>
+.mainmenu {
+    width: 20%;
+    background-color: #F7F7F7;
+    position: fixed;
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    margin-top: 60px;
+}
+
+
+.sub-menu a {
+display: block;
+color: rgb(19, 19, 19);
+padding: 16px 20px;
+font-family: serif;
+font-size: 20px;
+text-decoration: none;
+}
+
+
+.sub-menu a:hover{
+    background-color: #e7e7e7;
+    border-radius: 10px;
+}
+
+
+
+</style>
+
+    <div class="layout">
+        <h1 class="title">Do you want to make changes?</h1>
+        <form action="{% url 'edit' %}">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" id="save">Save Changes</button>
+        </form>
+        <form action="{% url 'settings' %}">
+            <button type="submit" id="cancel">Cancel</button>
+        </form>
+    </div>
+
+    <style>
+        .layout{
+             
+            width: 80%;
+            height: 600px;
+            float: right;
+            background-color: rgb(241, 241, 241);
+            margin-top: 100px;
+            margin-left: 30px;
+        }
+
+        #title {
+            font-size: 15px;
+            font-family: sans-serif;
+            color: black;
+            margin: 10px;
+        }
+
+        label{
+            float: left;
+            margin: 10px;
+        }
+
+
+        input[type=password], input[type=text], input[type=email] {
+            display: block;   
+        width: 50%;
+        padding: 10px 15px;
+        margin: 5px 20px;
+        display: inline-block;
+        border: 1px solid grey;
+        border-radius: 10px;
+        background-color:#F7F7F7 ;
+        
+    }
+
+    #cancel {
+        background-color: lightgray;
+        color: black;
+        font-family: sans-serif;
+        font-size: 15px;
+        padding: 10px 20px;
+        margin: 20px;
+        float: right;
+        border-radius: 10px;
+        border: none;
+    }
+
+    #save {
+        background-color: rgb(255, 0, 0);
+        color: rgb(255, 255, 255);
+        font-family: sans-serif;
+        font-size: 15px;
+        padding: 10px 20px;
+        margin: 20px;
+        float: right;
+        border-radius: 10px;
+        border: none;
+    }
+    </style>
+    
+    
+</body>
+</html>

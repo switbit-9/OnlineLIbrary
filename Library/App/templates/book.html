@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>HomePage</title>
+
+
+<div class='BookPage'>
+        <nav class="header">
+            
+            <i class="fas fa-book-reader" id="logo" style="font-size: 30px;
+            color: #4CAF50;"></i>
+
+            <form action="{% url 'search' %}" class="search" style="max-width: 600px;" method="GET">
+                {% csrf_token %}
+                <input class="input-field" type="text" placeholder="What are you looking for ? " name="q" >
+                <i id="search" class="fas fa-search" style="font-size: 20px; float: right;"></i>
+            </form>
+
+            <div class='header-right'>
+                <a href="{% url 'home'%}" class="home">Home</a>
+                <a href="{% url 'authors' %}">Authors</a>
+                <a href="{% url 'profile'%}" class="profile" style="font-weight:bolder;">{{ username }}</a>
+            </div>
+        </nav>
+
+<style>
+body {
+    margin: 0;
+}
+    .header {
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%; 
+    overflow: hidden;
+    border: 0.5px solid rgba(230, 230, 230, 0.39);
+    box-shadow: 5px 5px rgba(230, 230, 230, 0.39);
+    }
+
+    .header a {
+        display: inline-block;
+        color: rgb(8, 8, 8);
+        text-align: center;
+        padding: 8px 16px;
+        font-size: 17px;
+        text-decoration: none; 
+        margin: 10px;
+        
+    }
+
+    .header a:hover {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .header a:active {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .header-right{
+        float: right;
+    }
+
+    #logo {
+    float: left;
+    padding: 10px;
+    position: absolute;
+    padding-left: 20px;
+    }
+
+
+    
+        .search {
+        box-sizing: border-box;
+        display: inline-block;
+        position: inherit;
+        border-radius: 20px;
+        background-color: #f0eeee;
+        width: 600px;
+        height: 40px;  
+        margin-left: 200px;
+        margin-top: 5px;
+        }
+
+      
+    .search input[type=text] {
+        width: 85%;
+        font-size: 17px;
+        border: none;
+        background-color:transparent;
+        margin: 10px 20px;
+        font-family: sans-serif;
+    }
+
+    #search {
+        min-width: 20px;
+        padding: 10px;
+        position: absolute;
+        float: right;
+    }
+
+</style>
+<body>
+    
+
+    <div class='mainmenu'>
+        <div class="sub-menu">
+            <a href="{% url 'profile' %}" class="activity"> 
+                <i class="fas fa-user-alt"></i> 
+                My Profile
+           </a>
+
+      
+            <a href="{% url 'saved'%}" class="saved"> 
+                <i class="fas fa-book-open" ></i>
+                Favorites
+            </a>
+
+    
+            <a href="#" class="settings">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+
+            <a href="{% url 'logout' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        
+        </div>
+    
+    </div>
+
+    <style>
+    .mainmenu {
+        width: 20%;
+        background-color: #F7F7F7;
+        position: fixed;
+        overflow: auto;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        margin-top: 60px;
+    }
+
+
+    .sub-menu a {
+    display: block;
+    color: rgb(19, 19, 19);
+    padding: 16px 20px;
+    font-family: serif;
+    font-size: 20px;
+    text-decoration: none;
+    }
+
+
+    .sub-menu a:hover{
+        background-color: #e7e7e7;
+        border-radius: 10px;
+    }
+
+</style>
+
+     <div class="book-page">
+        {% if book %}
+            <div class="book">
+                <img src="{{ book.books_img }}" id="image" alt="image" class="image"  style="height: 400px;width: 300px; border-radius: 8px;">
+                <div class="options">
+                    <div class="text">
+                        <a href="{% url 'author' book.publisher_id %}">
+                            <p id="author">{{ book.publisher }}</p>
+                        </a>
+                        <h1 class="title" id="title">{{ book.title }}</h1>
+                        <p class="price" id="price"> {{ book.price }} $ </p>
+                    </div>              
+
+                    <div class="btn" >
+                        <a href="{% url 'save' book.id %}">
+                            <button id="save"> Save </button>
+                        </a>
+                        <a href="{% url 'borrow' book.id %}">
+                            <button id="borrow"> Borrow </button>
+                        </a>
+                    </div>
+
+                    <div class="content">
+                        {% if book.content != None %}
+                        <p class="content">{{book.content}}</p>
+                        {% else %}
+                        <p class="content"> Content is not available </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>   
+        {% endif %}
+    </div>
+
+<style>
+    .book-page {
+        background-color: rgb(241, 241, 241);
+        width: 78%;
+        float: right;
+        margin-top: 50px;
+    }
+
+
+    .image {
+        margin: 10px;
+        width: 15%;
+    }
+
+    .options {
+        width: 65%;
+        float: right;
+    }
+
+    .text {
+        font-family: sans-serif;
+        font-size: 18px;
+        float: left;
+        display: block;
+        margin-top: 20px;
+    }
+
+    #title {
+        font-family: sans-serif;
+        font-size: 25px;
+    }
+
+    .author {
+        font-family: sans-serif;
+        text-decoration: none !important;
+        color: lightskyblue;
+    }
+
+    #price {
+        font-family: sans-serif;
+        font-size: 15px;
+        font-style: italic;
+    }
+
+    .btn {
+        float: right;
+        margin: 20px;
+        margin-top: 20px;
+    }
+
+    #save { 
+        background-color: red;
+        color: white;
+        font-family: sans-serif;
+        font-size: 17px;
+        padding: 10px 15px;
+        margin: 10px;
+        border-radius: 10px;
+        border: none;
+    }
+
+    #save:hover { 
+        background-color: rgb(146, 3, 3);
+        color: white;
+        font-family: sans-serif;
+        font-size: 17px;
+        padding:10px 15px;
+        margin: 10px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #borrow {
+        border-radius: 10px;
+        color: rgb(34, 34, 34);
+        background-color: rgb(212, 212, 212);
+        border: none;
+        padding: 10px 15px;
+        margin: 10px;
+        font-family: sans-serif;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    #borrow:hover {
+        border-radius: 10px;
+        color: rgb(34, 34, 34);
+        background-color: rgb(114, 114, 114);
+        border: none;
+        padding: 10px 15px;
+        margin: 10px;
+        font-family: sans-serif;
+        font-size: 15px;
+        cursor: pointer;
+    }   
+
+    .content {
+        font-family: Georgia, serif;
+        font-size: 15px;
+        margin: 5px;
+        margin-top: 110px;
+        margin-bottom: 20px;
+    }
+
+</style>
+<div class="similiar">
+    <h1 id="kreu">Books you might like</h1>
+    <div class="book-grid">
+        {% if books %}
+            {% for books in books %}
+            <div class="books">
+                <div class="cope">
+                    <a href="{% url 'book' books.id %}">
+                        <div class="rrap">
+                            <img src="{{ books.books_img }}" id="image" alt="image" class="image"   style="height: 190px;width: 140px; border-radius: 8px;">
+                            <div class="zeze"></div>
+                        </div>
+                        <div class="gjendje" id="gjendje">
+                            {% if books.availability == 0 %}
+                                <p>Not Available</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    
+                    <div class="shtyp">
+                        <a href="{% url 'save' books.id %}">
+                            <b class="ruaj">Save</b>
+                        </a>
+
+                        <a href="{% url 'borrow' books.id %}">
+                            <b class="merr">Borrow</b>
+                        </a>
+                    </div>
+                </div>
+                <div class="txt">
+                    <p id="#title_2" >{{ books.title }}</p>
+                    <p id="price_2">{{ books.price }} $ </p>
+                </div>
+            </div>        
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<style>
+
+.similiar {
+display: block;
+width: 80%;
+float: right;
+background-color: rgb(241, 241, 241);
+margin-left: -30px;
+margin-top: 20px;
+}
+
+.book-grid {
+display: grid;
+grid-column-gap: 30px;
+grid-row-gap: -10px;
+grid-template-columns: 160px 160px 160px 160px 160px;
+margin-top: 20px;
+margin:5px;
+padding: 10px;
+}
+
+#kreu {
+text-align: center;
+font-family: sans-serif;
+font-size: 22px;
+margin: 20px;
+}
+
+img {
+    padding: 10px;
+}
+
+.cope {
+font-family: serif;
+position: relative;
+}
+
+.rrap:hover .zeze{
+position: absolute;
+width: 100%;
+height: 100%;
+background-image: linear-gradient(to bottom,  rgba(245, 246, 252, 0), rgba(7, 7, 7, 0.73));
+margin-top: -212px;
+border-radius: 20px;
+}
+
+.cope .gjendje {
+position: absolute;
+font-family: sans-serif;
+font-size: 15px;
+color: white;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+visibility: hidden;
+opacity: 0;
+}
+
+.cope:hover .gjendje{
+position: absolute;
+font-family: sans-serif;
+font-size: 15px;
+color: white;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+visibility: visible;
+opacity: 1;
+text-shadow: 2px black;
+}
+
+.cope .ruaj{
+        position: absolute;
+        bottom: 15%;
+        left: 10%;
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        opacity: 0.8;
+        visibility: hidden;
+    }
+
+    .cope:hover .ruaj{
+        position: absolute;
+        bottom: 15%;
+        left: 10%;
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        opacity: 0.8;
+        visibility: visible;
+    }
+
+    .cope .merr{
+        position: absolute;
+        bottom: 15%;
+        right: 10%;
+        background-color: rgb(179, 179, 179);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        opacity: 0.8;
+        visibility: hidden;
+    }
+
+    .cope:hover .merr{
+        position: absolute;
+        bottom: 15%;
+        right: 10%;
+        background-color: rgb(192, 192, 192);
+        color: black;
+        padding: 5px 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        opacity: 0.8;
+        visibility: visible;
+    }
+
+#title_2{
+size: 15px;
+font-weight: bold;
+color: rgb(17, 17, 17);
+padding: 5px;
+margin: 0;
+}
+
+#price_2 {
+size: 10px;
+font-style: italic;
+padding: 5px;
+margin: 0;
+}
+
+#availability {
+padding: -10px;
+margin: 0;
+}
+
+</style>
+
+
+
+
+
+
+
+</div>

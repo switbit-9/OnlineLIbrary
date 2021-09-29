@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    {% load static %}
+    <div class="wallpaper">
+        <img src="{% static 'wallpaper.jpg' %}" class='background' height="560px" alt="wallpaper">
+        <div class="form">
+            <h1>Welcome to Open Library</h1>
+            <p>Login to find and read your favorite books</p>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" id="loginbtn" >LogIn</button>
+            </form>
+            <form action="{% url 'register'%}" method="GET">
+                <button type="submit" id="signupbtn"> Sign Up </button>
+            </form>
+        </div>
+        
+    </div>
+</body>
+</html>
+
+<style>
+    .body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .wallpaper{
+        margin: 0;
+    }
+
+    .background{
+        margin: 0;
+        width: 100%;
+        background-image: linear-gradient(to bottom right, rgb(87, 87, 87), rgba(122, 122, 119, 0.116));
+        position: relative;
+    }
+
+    h1 {
+        margin-top: 30px;
+        text-align: center;
+        font-family: Georgia,  serif;
+        font-size: 20px;
+    }
+
+    p {
+        text-align: center;
+        font-family: Georgia,  serif;
+        font-size: 15px;
+        font-weight: normal;
+        color: grey;
+    }
+
+    label {
+        display: none;
+    }
+
+    .wallpaper .form {
+        position: absolute;
+        background-color: #F7F7F7;
+        width: 400px;
+        height: 420px;
+        opacity: 0.9;
+        border-radius: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+
+    }
+
+    input[type=password], input[type=text] {
+        width: 80%;
+        padding: 12px 20px;
+        margin: 15px 5px;
+        margin-left: 20px;
+        display: inline-block;
+        border: 1px solid grey;
+        border-radius: 20px;
+        background-color:#F7F7F7 ;
+    }
+
+    label {
+        font-family: Georgia, serif;
+        font-family: 17px;
+        font-weight: normal;
+        padding: 10px 20px;
+        margin-top: 50px  ;
+    }
+
+    button {
+        width: 90%;
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 12px 15px;
+        margin: 10px;
+        margin-left: 20px;
+        text-align: center;    
+        cursor: pointer;    
+    }
+
+    #loginbtn {
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    #loginbtn :hover {
+        background-color: #03794e
+    }
+
+
+    #signupbtn {
+        background-color: #F7F7F7;
+        color: black;
+    }
+
+    #signupbtn:hover { 
+        background-color: lightgrey;
+    }
+
+
+    
+</style>

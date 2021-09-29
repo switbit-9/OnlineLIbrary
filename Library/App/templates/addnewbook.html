@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>HomePage</title>
+
+<div class='HomePage'>
+    <nav class="header">
+        
+        
+
+        <form action="{% url 'search' %}" class="search" style="max-width: 600px;" method="GET">
+            {% csrf_token %}
+            <input class="input-field" type="text" placeholder="What are you looking for ? " name="q" >
+            <i id="search" class="fas fa-search" style="font-size: 20px; float: right;"></i>
+        </form>
+
+        <div class='header-right'>
+          <a href="#" class="fication">
+            <i class="fas fa-bell"></i>
+          </a>
+          <a href="#" class="message">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="#" class="profile" style="font-weight: bolder;">
+            {{ username }}
+          </a>
+          
+            
+            </div>
+        </nav>
+    </head>
+
+    <style>
+    body {
+        margin: 0;
+    }
+        .header {
+        background-color: #ffffff;
+        width: 78%; 
+        float: right;
+        overflow: hidden;
+        border: 0.5px solid rgba(230, 230, 230, 0.39);
+        box-shadow: 5px 5px rgba(230, 230, 230, 0.39);
+        
+        }
+
+        .header a {
+            display: inline-block;
+            color: rgb(8, 8, 8);
+            text-align: center;
+            padding: 8px 16px;
+            font-size: 17px;
+            text-decoration: none; 
+            margin: 10px;
+            
+        }
+
+        .header a:hover {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .header a:active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .header-right{
+            float: right;
+        }
+
+
+
+
+        
+            .search {
+            box-sizing: border-box;
+            display: inline-block;
+            position: inherit;
+            border-radius: 20px;
+            background-color: #f0eeee;
+            width: 600px;
+            height: 40px;  
+            margin-left: 200px;
+            margin-top: 5px;
+            }
+
+        
+            .search input[type=text] {
+                width: 85%;
+                font-size: 17px;
+                border: none;
+                background-color:transparent;
+                margin: 10px 20px;
+                font-family: sans-serif;
+            }
+
+            #search {
+                min-width: 20px;
+                padding: 10px;
+                position: absolute;
+                float: right;
+            }
+
+    </style>
+    <body>
+        
+
+        <div class='mainmenu'>
+            <i class="fas fa-book-reader" id="logo" style="font-size: 30px;
+            color: #ffffff;"></i>
+            <div class="sub-menu">
+                <a href="{% url 'admin' %}" class="activity"> 
+                    <i class="fas fa-user-alt" style="color: white;"></i> 
+                    Home
+            </a>
+        
+                <a href="#" class="saved"> 
+                    <i class="fas fa-book-open" style="color: white;"></i>
+                    Manage Books
+                </a>
+            
+                <a href="{% url 'manageu' %}" class="calendar">
+                    <i class="fas fa-users" style="color: white;"></i>
+                    Manage Users
+                </a>
+        
+                <a href="#" class="settings">
+                    <i class="fas fa-book-reader" style="color: white;"></i>
+                    Issued Books
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-folder" style="color: white;"></i>
+                    Archived Books
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-eye" style="color: white;"></i>
+                    All Activity
+                </a>
+
+                <a href="{% url 'logout' %}">
+                    <i class="fas fa-sign-out-alt" style="color: white;"></i>
+                LogOut
+                </a>
+            
+            </div>
+        
+        </div>
+
+    <style>
+    .mainmenu {
+        width: 20%;
+        background-color: #4CAF50;
+        position: fixed;
+        overflow: auto;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        margin-top: 60px;
+    }
+
+
+    .sub-menu a {
+    display: block;
+    color: rgb(255, 255, 255);
+    padding: 16px 20px;
+    font-family: serif;
+    font-size: 20px;
+    text-decoration: none;
+    }
+
+
+    .sub-menu a:hover{
+        background-color: #409943;
+        border-radius: 10px;
+    }
+
+    #logo {
+    float: left;
+    padding: 10px;
+    position: absolute;
+    padding-left: 20px;
+    }
+
+
+</style>
+
+
+
+<div class="Add">
+    <div id="header">
+        <h1 id="kreu">Add New Book</h1>
+    </div>
+    
+        <div class="layout">
+            <form action="{% url 'addbook' %}" method="POST">
+                {% csrf_token %}
+                    <p id="title">Title: {{ form.title }}</p>
+                    <p id="price">Price {{ form.price }}</p>
+                    <p id="quantity">Quantity: {{ form.quantity }}</p>
+                    <p id='availability'>Availability: {{ form.availability }}</p> 
+                    <p id="image">Image: {{ form.books_img }}</p>
+                    <p id="author">Author: {{ form.publisher }}</p>
+                    <p id="category">Category: {{ form.category }}</p>
+                <button type="submit" id="save">Save Book</button>
+                </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .Add {
+        width: 78%;
+        background-color: rgb(241, 241, 241);
+        float: right;
+        margin-left: 0px;
+        margin-top: 0px;
+        padding: 10px;
+    }
+
+    #header{
+        display: inline-block;
+        background-color: rgb(235, 235, 235);
+        width: 100%;
+    }
+
+    #sub {
+        font-family: sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+
+        text-align: center;
+    }
+
+    #title {
+        font-weight: bold;
+    }
+
+    #save{
+        background-color: rgb(37, 37, 37);
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-family: sans-serif;
+        font-size: 15px;
+        float: right;
+
+    }
+</style>
+                    
+                    
